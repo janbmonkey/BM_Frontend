@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import UserItem from './UserItem';
 import { UserModel } from './UserModel';
-import { getAllUsers, getUser } from './UserService';
+import { getAllUsers } from './UserService';
 
 function UserListComponent() {
   
@@ -12,11 +13,11 @@ function UserListComponent() {
       setUserList(users);
     }
     fetchData();
-  }, []);
+  }, [userList]);
 
   return (
     <div>
-      { userList?.map( user => <span> {user.id} {user.name} {user.email}  </span>) }
+      { userList?.map( user => <UserItem user={user}/>) }
     </div>
   );
 };

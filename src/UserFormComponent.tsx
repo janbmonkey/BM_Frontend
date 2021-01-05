@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { UserModel } from './UserModel';
-import { putUsers } from './UserService';
+import { postUsers } from './UserService';
 
 function UserFormComponent() {
   const [user, setUser] = useState<UserModel>();
@@ -10,13 +10,12 @@ function UserFormComponent() {
     setUser({...user, [name]:value} as UserModel);
   }
 
-  const onSubmit = (event: React.FormEvent) => {
+  const onSubmit = useCallback((event: React.FormEvent) => {
     if(user){
-      const putData = async () => await putUsers(user);
-      console.log('Alright put user .. ', JSON.stringify(user));
-      console.log('New User has index ', putData());
+      const putData = async () => await postUsers(user);
+      putData();
     }
-  }
+  },[user]);
 
   return (
     <>
